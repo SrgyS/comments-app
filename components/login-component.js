@@ -97,6 +97,7 @@ let isLoginMode = true;
             }).then((user)=>{
                 setToken(`Bearer ${user.user.token}`)
                 const userName = user.user.name 
+                let token = user.user.token
                 fetchCommentsAndRender(userName, token)
             })
             .catch((error) => {
