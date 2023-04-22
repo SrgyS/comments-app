@@ -66,9 +66,9 @@ let isLoginMode = true;
              }).then((user)=>{
                  setToken(`Bearer ${user.user.token}`)
                  const userName = user.user.name 
-                 let token = `Bearer ${user.user.token}`
+                 let token = user.user.token
                  console.log(token) 
-                 fetchCommentsAndRender(userName, token)
+                 fetchCommentsAndRender(userName, `Bearer ${token}`)
                   
              })
              .catch((error) => {
@@ -97,8 +97,8 @@ let isLoginMode = true;
             }).then((user)=>{
                 setToken(`Bearer ${user.user.token}`)
                 const userName = user.user.name 
-                let token = `Bearer ${user.user.token}`
-                fetchCommentsAndRender(userName, token)
+                let token = user.user.token
+                fetchCommentsAndRender(userName, `Bearer ${token}`)
             })
             .catch((error) => {
                 // TODO: Выводить алерт красиво
