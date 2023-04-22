@@ -66,7 +66,7 @@ let isLoginMode = true;
              }).then((user)=>{
                  setToken(`Bearer ${user.user.token}`)
                  const userName = user.user.name 
-                 let token = user.user.token
+                 let token = `Bearer ${user.user.token}`
                  console.log(token) 
                  fetchCommentsAndRender(userName, token)
                   
@@ -97,7 +97,7 @@ let isLoginMode = true;
             }).then((user)=>{
                 setToken(`Bearer ${user.user.token}`)
                 const userName = user.user.name 
-                let token = user.user.token
+                let token = `Bearer ${user.user.token}`
                 fetchCommentsAndRender(userName, token)
             })
             .catch((error) => {
