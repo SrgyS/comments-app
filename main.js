@@ -4,7 +4,7 @@ import { renderApp } from "./render.js";
 const appEl = document.getElementById("app");
 
 let comments = [];
-let token = null;
+export let token = null;
 
     // лоадер при загрузке страницы  
 appEl.insertAdjacentHTML(
@@ -28,8 +28,16 @@ appEl.insertAdjacentHTML(
                     id: comment.id,
                   };
                 });
-                renderApp(comments, userName);
+                renderApp(comments, userName, token);
               });
             }
             
+            if (localStorage.getItem('userData')) {
+              token = JSON.parse(localStorage.getItem('userData')).tokenValue
+              let userName = JSON.parse(localStorage.getItem('userData')).name
+              console.log(token, userName)
+              fetchCommentsAndRender(userName, token )
+            console.log(localStorage.getItem('userData'))
+            } else {
     fetchCommentsAndRender()
+            }

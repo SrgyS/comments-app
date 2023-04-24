@@ -1,5 +1,5 @@
 import { addComment, deleteComment, likeCommentToggle} from "./api.js";
-import {fetchCommentsAndRender} from  "./main.js"
+import {fetchCommentsAndRender, token} from  "./main.js"
 import {renderloginAndRegisterComponent} from "./components/login-component.js"
 
 
@@ -111,9 +111,9 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 //     });
 //   };
 
-let token = null;
+// let token = null;
 
-const renderApp = (commentsArr, userName) => {
+const renderApp = (commentsArr, userName, token) => {
 
     const appEl = document.getElementById("app");
 
@@ -168,7 +168,10 @@ const appHtml =
                         <button class="add-form-button" id="button-delete">
                         Удалить последний комментарий
                         </button>
-                    </div>` : `<p>Чтобы добавить комментарий, <a class="auth-link" id=auth>авторизуйтесь</a></p>`}`
+                    </div>
+                    <button class="add-form-button" id="btn-switch-user">
+                    Сменить пользователя
+                    </button>` : `<p>Чтобы добавить комментарий, <a class="auth-link" id=auth>авторизуйтесь</a></p>`}`
         
 appEl.innerHTML = appHtml;
 
@@ -224,8 +227,6 @@ const showLoading = () => {
 
     const lastComment = commentsArr[commentsArr.length - 1];
     const lastCommentId = lastComment.id;
-    
-     document.getElementById("button-delete");
 
     // удаление последнего комментария
     document.getElementById("button-delete").addEventListener("click", (event) => {
@@ -235,6 +236,15 @@ const showLoading = () => {
         })
     })
     
+    document.getElementById('btn-switch-user').addEventListener("click", (event)=> {
+      event.stopPropagation()
+      localStorage.removeItem('userData')
+      renderloginAndRegisterComponent({appEl, setToken: (newToken) => {
+        token = newToken;
+    },
+    fetchCommentsAndRender
+ })
+    })
 
     let nameInputElement = document.getElementById("input-authorName");
     const textInputElement = document.getElementById("input-text");

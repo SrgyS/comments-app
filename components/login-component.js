@@ -44,7 +44,7 @@ let isLoginMode = true;
         loginButton.click();
         }
       })
-
+ const userData = {}
     loginButton.addEventListener('click', () => {
        
         if (isLoginMode) {
@@ -64,12 +64,14 @@ let isLoginMode = true;
                  login: login,
                  password: password,
              }).then((user)=>{
-                 setToken(`Bearer ${user.user.token}`)
-                 const userName = user.user.name 
-                 let token = user.user.token
-                 console.log(token) 
-                 fetchCommentsAndRender(userName, `Bearer ${token}`)
-                  
+                 let token =`Bearer ${user.user.token}`
+                 setToken(token)
+                 const userData = {
+                    tokenValue: token,
+                    name: user.user.name,
+                 } 
+                 localStorage.setItem('userData', JSON.stringify(userData))    
+                 fetchCommentsAndRender(userData.name, token)                
              })
              .catch((error) => {
                 // TODO: Выводить алерт красиво
@@ -95,10 +97,19 @@ let isLoginMode = true;
                 login: login,
                 password: password,
             }).then((user)=>{
-                setToken(`Bearer ${user.user.token}`)
-                const userName = user.user.name 
-                let token = user.user.token
-                fetchCommentsAndRender(userName, `Bearer ${token}`)
+                let token =`Bearer ${user.user.token}`
+                 setToken(token)
+                 const userData = {
+                    tokenValue: token,
+                    name: user.user.name,
+                 } 
+                 localStorage.setItem('userData', JSON.stringify(userData))    
+                 fetchCommentsAndRender(userData.name, token)  
+                // setToken(`Bearer ${user.user.token}`)
+                // const userName = user.user.name 
+                // let token = user.user.token
+                // localStorage.setItem('token', token)
+                // fetchCommentsAndRender(userName, `Bearer ${token}`)
             })
             .catch((error) => {
                 // TODO: Выводить алерт красиво
