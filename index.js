@@ -1,5 +1,6 @@
 import { getComments} from "./api.js";
 import { renderApp } from "./render.js";
+import { format } from "date-fns";
 
 const appEl = document.getElementById("app");
 
@@ -17,10 +18,11 @@ appEl.insertAdjacentHTML(
                 comments = responseData.comments.map((comment) => {
                   return {
                     name: comment.author.name,
-                    date: new Date(comment.date)
-                      .toLocaleString()
-                      .slice(0, -3)
-                      .replace(",", ""),
+                    date: format(new Date(comment.date), 'yyy-MM-dd hh.mm.ss'),
+                    // new Date(comment.date)
+                    //   .toLocaleString()
+                    //   .slice(0, -3)
+                    //   .replace(",", ""),
                     text: comment.text,
                     likeCounter: comment.likes,
                     isLiked: comment.isLiked,

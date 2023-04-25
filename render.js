@@ -1,5 +1,5 @@
 import { addComment, deleteComment, likeCommentToggle} from "./api.js";
-import {fetchCommentsAndRender, token} from  "./main.js"
+import {fetchCommentsAndRender, token} from  "./index.js"
 import {renderloginAndRegisterComponent} from "./components/login-component.js"
 
 
